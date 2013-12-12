@@ -3,13 +3,15 @@ module.exports = (app) ->
   {pathFor} = app.locals.path
 
   class UsersController
-    @index = (req, res) ->
-      res.render 'users', title: 'users', users: UserModel.all(), view: 'users'
+    @list = (req, res) ->
+      res.send UserModel.all()
 
-    @new = (req, res) ->
-      res.render 'users/new', title: 'new user', view: 'users_new'
+    @show = (req, res) ->
+
+    @destroy = (req, res) ->
+
+    @update = (req, res) ->
 
     @create = (req, res) ->
       user = new UserModel req.body.name
       user.save()
-      setTimeout (-> res.redirect pathFor 'user.index'), 1000
