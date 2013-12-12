@@ -20,7 +20,10 @@ autoload = (app, dir, camelCase) ->
   for filename in fs.readdirSync(dir)
     pathname = path.join dir, filename
 
-    if fs.lstatSync(pathname).isDirectory()
+    # Don't blow up when I have a file open in vim
+    if _(filename).endsWith('.swp')
+      continue
+    else if fs.lstatSync(pathname).isDirectory()
       autoload app, pathname, camelCase
     else
       loadedModule = require(pathname)?(app)
